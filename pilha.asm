@@ -15,8 +15,6 @@ main:
 lui	$at, 0x1001
 add	$s0, $zero, $at
 
-
-
 # carregue endereço da memória de dados
 lui	$at, 0x1001
 addi	$s1, $at, 0x4C
