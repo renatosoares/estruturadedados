@@ -1,7 +1,8 @@
 # Atividades :computer:
 
 ## Conteúdo
-## *_Pilha_
+### *_Pilha_
+### *_Fila_
 
 Exercícios de prática na disciplina Estrutura de Dados :goberserk: 
 _Código usando somente instruções **básicas** do Assembly mips_
