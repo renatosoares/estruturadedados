@@ -1,4 +1,4 @@
-# pilha com push, pop e o tamanho.
+# fila
 .data 
 endPilha:	.word 	0:10	# Espaço reservado na memória para armazenar endereço
 size:		.word 	0	# quantidade de elemento do array
@@ -19,8 +19,9 @@ add	$s0, $zero, $at
 lui	$at, 0x1001
 addi	$s1, $at, 0x4C
 
-add	$t7, $t7, $s0		# ponteiro para o inicio da pilha
+add	$t7, $t7, $s0		# ponteiro para o inicio da filha
 
+add	$t8, $zero, $t7		# ponteiro para o final da filha
 
 # carrega quantidade de elementos do array
 lui	$at, 0x1001
@@ -37,13 +38,110 @@ lw	$s5, 0($s5)
 		syscall
 		add	$s2, $zero, $v0
 		
-		addi 	$t0, $zero, 9		# sair do sistema
+		addi 	$t0, $zero, 9			# sair do sistema
 		beq	$s2, $t0, functionFim
-		addi 	$t0, $zero, 1		# chama a função push()
-		beq	$s2, $t0, functionPush	# <<<<<<<<<<<<<<<<<<<
-		addi	$t0, $zero, 2		# chama a função pop()
-		beq	$s2, $t0, functionPop	# <<<<<<<<<<<<<<<<<<<
-		addi	$t0, $zero, 3		# chama a função size()
-		beq	$s2, $t0, functionSize	# <<<<<<<<<<<<<<<<<<<
+		addi 	$t0, $zero, 1			# chama a função enqueue()
+		beq	$s2, $t0, functionEnqueue	# <<<<<<<<<<<<<<<<<<<
+		addi	$t0, $zero, 2			# chama a função dequeue()
+		beq	$s2, $t0, functionDequeue	# <<<<<<<<<<<<<<<<<<<
+		addi	$t0, $zero, 3			# chama a função size()
+		beq	$s2, $t0, functionSize		# <<<<<<<<<<<<<<<<<<<
+		addi	$t0, $zero, 4			# chama a função cabeca()
+		beq	$s2, $t0, functionHead		# <<<<<<<<<<<<<<<<<<<
+		addi	$t0, $zero, 5			# chama a função vazia()
+		beq	$s2, $t0, functionVazia		# <<<<<<<<<<<<<<<<<<<
 	j functionSelecao
 #============================================================================================
+
+#--------------------------------------------------------------------------------------------
+###################	função enqueue()		####################################|
+#--------------------------------------------------------------------------------------------	
+	
+	functionEnqueue:
+		addi	$v0, $zero, 5
+		syscall
+		
+		sw	$v0, 0($s0)	#armazena dados na memória
+		
+		addi 	$t9, $t9, 1	#contador de elementos
+		
+		addi	$s0, $s0, 4	# passa para proxima memória
+
+		addi	$t8, $t8, 4	# aponta para o fim da fila
+
+	j	functionSelecao
+#============================================================================================
+
+#--------------------------------------------------------------------------------------------
+###################	função Dequeue()			####################################|
+#--------------------------------------------------------------------------------------------	
+	functionDequeue:
+		lw 	$t1, 0($t7)
+		# imprima o topo da pilha
+		add	$a0, $zero, $t1 
+		addi	$v0, $zero, 1
+		syscall				
+		
+		sw	$zero, 0($t7)
+		
+		addi	$t7, $t7, 4
+		addi 	$t9, $t9, -1
+
+	j	functionSelecao
+#============================================================================================
+
+#--------------------------------------------------------------------------------------------
+###################	função head()			####################################|
+#--------------------------------------------------------------------------------------------	
+	functionHead:
+		lw 	$t1, 0($t7)
+		# imprima o topo da pilha
+		add	$a0, $zero, $t1 
+		addi	$v0, $zero, 1
+		syscall		
+
+	j	functionSelecao
+#============================================================================================
+
+#--------------------------------------------------------------------------------------------
+###################	função vazia()			####################################|
+#--------------------------------------------------------------------------------------------	
+	functionVazia:
+		beq	$t7, $t8, verdadeiro	# se os ponteiros estiverem com ponteiros iguais
+						# retorne verdadeiro	
+		
+		# falso
+		add	$a0, $zero, $zero 
+		addi	$v0, $zero, 1
+		syscall	
+		j functionSelecao
+		
+		# verdadeiro
+		verdadeiro:
+		addi	$a0, $zero, 1 
+		addi	$v0, $zero, 1
+		syscall					
+
+	j	functionSelecao
+#============================================================================================
+
+
+#--------------------------------------------------------------------------------------------
+###################	função size()			####################################|
+#--------------------------------------------------------------------------------------------	
+	functionSize:
+
+	# imprima o topo da pilha
+		add	$a0, $zero, $t9 
+		addi	$v0, $zero, 1
+		syscall						
+
+	j	functionSelecao
+#============================================================================================
+
+#--------------------------------------------------------------------------------------------
+###################	função fim()			####################################|
+#--------------------------------------------------------------------------------------------		
+	functionFim:
+		addi	$v0, $zero, 10
+		syscall
