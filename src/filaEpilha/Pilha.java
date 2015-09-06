@@ -1,3 +1,7 @@
+/**
+ * @author https://github.com/renatosoares
+ *
+ */
 package filaEpilha;
 
 public class Pilha {

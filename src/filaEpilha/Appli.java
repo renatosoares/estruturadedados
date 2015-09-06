@@ -1,20 +1,21 @@
+/**
+ * @author https://github.com/renatosoares
+ *
+ */
 package filaEpilha;
 
 import java.util.Scanner;
 
 
-/**
- * @author https://github.com/renatosoares
- *
- */
+
 
 public class Appli {
 	public static int NumeroMaximoDeElementos = 1000;
-	//private Pilha pilhaObjeto;
+	private Fila filaObjeto;
 		
 	public Appli() {
 		// instanciando as classes Pilha e Fila
-		//pilhaObjeto = new Pilha();
+		filaObjeto = new Fila();
 		
 		
 		int TipoDeEstruturaDeDados = 0;
@@ -35,7 +36,7 @@ public class Appli {
 				System.out.println("Pilha");
 				break;
 			case 2:
-				System.out.println("Fila");
+				filaObjeto.play();
 				break;
 			case 3:
 				System.out.println("Sair");
