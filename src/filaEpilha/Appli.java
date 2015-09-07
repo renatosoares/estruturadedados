@@ -6,9 +6,6 @@ package filaEpilha;
 
 import java.util.Scanner;
 
-
-
-
 public class Appli {
 	public static int NumeroMaximoDeElementos = 1000;
 	private Fila filaObjeto;
@@ -27,7 +24,7 @@ public class Appli {
             System.out.println(" 3 - SAIR");
 			System.out.println("============================");
 			
-			System.out.print("Escolha o tipo: ");
+			System.out.println("Escolha o tipo: ");
 			
 			TipoDeEstruturaDeDados = new Scanner(System.in).nextInt();
 			
