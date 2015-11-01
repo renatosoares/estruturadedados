@@ -1,3 +1,5 @@
+package encadeada.lista;
+
 public class mains {
 
 	public static void main(String[] args) {
